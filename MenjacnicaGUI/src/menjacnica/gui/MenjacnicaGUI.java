@@ -17,6 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 
+import menjacnica.gui.models.MenjacnicaTableModel;
+
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
@@ -55,6 +57,10 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenu mnHelp;
 	private JMenuItem mntmAbout;
 	private JTable table;
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmDodajKurs;
+	private JMenuItem mntmIzbrisiKurs;
+	private JMenuItem mntmIzvrsiZamenu;
 
 	
 
@@ -97,6 +103,7 @@ public class MenjacnicaGUI extends JFrame {
 			btnDodajKurs = new JButton("Dodaj kurs");
 			btnDodajKurs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.dodajKursProzor();
 				}
 			});
 			btnDodajKurs.setPreferredSize(new Dimension(120, 30));
@@ -243,7 +250,41 @@ public class MenjacnicaGUI extends JFrame {
 	private JTable getTable_1() {
 		if (table == null) {
 			table = new JTable();
+			table.setFillsViewportHeight(true);
+			table.setModel(new MenjacnicaTableModel(GUIKontroler.vratiSveKurseve()));
+			addPopup(table, getPopupMenu());
 		}
 		return table;
+	}
+	private JPopupMenu getPopupMenu() {
+		if (popupMenu == null) {
+			popupMenu = new JPopupMenu();
+			popupMenu.add(getMntmDodajKurs());
+			popupMenu.add(getMntmIzbrisiKurs());
+			popupMenu.add(getMntmIzvrsiZamenu());
+		}
+		return popupMenu;
+	}
+	private JMenuItem getMntmDodajKurs() {
+		if (mntmDodajKurs == null) {
+			mntmDodajKurs = new JMenuItem("Dodaj kurs");
+		}
+		return mntmDodajKurs;
+	}
+	private JMenuItem getMntmIzbrisiKurs() {
+		if (mntmIzbrisiKurs == null) {
+			mntmIzbrisiKurs = new JMenuItem("Izbrisi kurs");
+		}
+		return mntmIzbrisiKurs;
+	}
+	private JMenuItem getMntmIzvrsiZamenu() {
+		if (mntmIzvrsiZamenu == null) {
+			mntmIzvrsiZamenu = new JMenuItem("Izvrsi zamenu");
+		}
+		return mntmIzvrsiZamenu;
+	}
+	public void osveziTabelu() {
+		MenjacnicaTableModel model = (MenjacnicaTableModel) table.getModel();
+		model.staviSveKnjigeUModel(GUIKontroler.vratiSveKurseve());
 	}
 }

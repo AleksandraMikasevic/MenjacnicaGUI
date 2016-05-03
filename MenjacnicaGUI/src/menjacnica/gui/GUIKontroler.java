@@ -2,9 +2,13 @@ package menjacnica.gui;
 
 import java.awt.EventQueue;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import menjacnica.Kurs;
+import menjacnica.Menjacnica;
 
 public class GUIKontroler {
 	private static MenjacnicaGUI frame;
@@ -56,4 +60,26 @@ public class GUIKontroler {
 			System.exit(0);
 		}
 	}
-}
+	
+	public static List<Kurs> vratiSveKurseve() {
+		return Menjacnica.vratiSveKurseve();
+	}
+	public static void dodajKursProzor() {
+		DodajKursGui prozor = new DodajKursGui();
+		prozor.setVisible(true);
+		prozor.setLocationRelativeTo(null);
+	}
+	//String naziv, String skraceniNaziv, String sifra, double prodajniKurs, double kupovniKurs, double srednjiKurs
+	public static void dodajKurs(String novo) {
+		String[] novi = novo.split(",");
+		String sifra = novi[0];
+		String naziv = novi[1];
+		Double prodajniKurs = Double.parseDouble(novi[2]);
+		Double kupovniKurs = Double.parseDouble(novi[3]);
+		String skraceniNaziv = novi[4];
+		Double srednjiKurs = Double.parseDouble(novi[5]);
+		Menjacnica.dodajKurs(sifra, naziv, skraceniNaziv, prodajniKurs, kupovniKurs, srednjiKurs);
+		frame.osveziTabelu();
+	}
+	
+}	
