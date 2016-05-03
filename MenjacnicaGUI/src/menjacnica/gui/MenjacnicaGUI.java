@@ -8,11 +8,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
+
+
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
@@ -20,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
@@ -28,6 +33,9 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -54,8 +62,15 @@ public class MenjacnicaGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MenjacnicaGUI() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GUIKontroler.ugasiAplikaciju();
+			}
+
+		});
 		setTitle("Menjacnica");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 530, 336);
 		setJMenuBar(getMenuBar_1());
 		contentPane = new JPanel();
@@ -150,7 +165,11 @@ public class MenjacnicaGUI extends JFrame {
 			mntmOpen = new JMenuItem("Open");
 			mntmOpen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					
+					String t = GUIKontroler.ucitajIzFajla();
+					String tekst = getTextArea().getText();
+					tekst = tekst + " Ucitan fajl: " +t;
+					if(t.isEmpty() == false)
+					textArea.setText(tekst);
 				}
 			});
 			mntmOpen.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/com/sun/java/swing/plaf/windows/icons/Directory.gif")));
@@ -161,6 +180,14 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmSave() {
 		if (mntmSave == null) {
 			mntmSave = new JMenuItem("Save");
+			mntmSave.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					String t = GUIKontroler.sacuvaj();
+					String tekst = getTextArea().getText() + "Sacuvan fajl: "+t;
+					if(t.isEmpty() == false)
+					textArea.setText(tekst);
+				}
+			});
 			mntmSave.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/com/sun/java/swing/plaf/windows/icons/FloppyDrive.gif")));
 			mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		}
@@ -169,6 +196,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmExit() {
 		if (mntmExit == null) {
 			mntmExit = new JMenuItem("Exit");
+			mntmExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.ugasiAplikaciju();
+				}
+			});
 			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
 		}
 		return mntmExit;
@@ -183,6 +215,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmAbout() {
 		if (mntmAbout == null) {
 			mntmAbout = new JMenuItem("About");
+			mntmAbout.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
 		}
 		return mntmAbout;
 	}
