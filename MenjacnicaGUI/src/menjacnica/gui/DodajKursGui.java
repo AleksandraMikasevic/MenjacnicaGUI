@@ -166,7 +166,8 @@ public class DodajKursGui extends JFrame {
 				String skraceniNaziv = getSkraceniNazivTxt().getText();
 				String srednjiKurs = getSrednjiKursTxt().getText();
 				String novo = sifra+","+naziv+","+prodajniKurs+","+kupovniKurs+","+skraceniNaziv+","+srednjiKurs;
-				GUIKontroler.dodajKurs(novo);
+				GUIKontroler.dodajKurs(naziv, skraceniNaziv, sifra, prodajniKurs, kupovniKurs, srednjiKurs);
+				GUIKontroler.ispisi(novo);
 				}
 			});
 			btnDodaj.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -178,7 +179,7 @@ public class DodajKursGui extends JFrame {
 			btnOdustani = new JButton("Odustani");
 			btnOdustani.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					toBack();
+					dispose();
 				}
 			});
 			btnOdustani.setFont(new Font("Tahoma", Font.PLAIN, 16));

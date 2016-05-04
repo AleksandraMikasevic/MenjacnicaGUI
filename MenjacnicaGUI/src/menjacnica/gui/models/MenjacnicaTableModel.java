@@ -53,12 +53,12 @@ public class MenjacnicaTableModel extends AbstractTableModel {
 		return kolone[column];
 	}
 
-	public void staviSveKnjigeUModel(List<Kurs> kursevi) {
+	public void staviSveKurseveUModel(List<Kurs> kursevi) {
 		this.kursevi = kursevi;
 		fireTableDataChanged();
 	}
 
-	public Kurs vratiKnjigu(int index) {
+	public Kurs vratiKurs(int index) {
 		return kursevi.get(index);
 	}
 	
