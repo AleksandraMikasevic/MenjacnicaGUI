@@ -128,10 +128,15 @@ public class MenjacnicaGUI extends JFrame {
 							MenjacnicaTableModel model = (MenjacnicaTableModel) table.getModel();
 							Kurs k = model.vratiKurs(index);
 							GUIKontroler.izbrisiKurs(k);
+							JOptionPane.showMessageDialog(getContentPane(), "Uspešno ste izbrisali kurs.", "Uspesno brisanje", JOptionPane.INFORMATION_MESSAGE);
 							String tekst = textArea.getText();
 							tekst = tekst + "\nIzbrisan je kurs sa indeksom: "+ index;
 							textArea.setText(tekst);
 							
+						}
+						else {
+							JOptionPane.showMessageDialog(getContentPane(), "Nije uspešno brisanje kursa.", "Neuspesno brisanje", JOptionPane.ERROR_MESSAGE);
+
 						}
 					}
 				}

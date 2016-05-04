@@ -12,6 +12,7 @@ import menjacnica.Menjacnica;
 
 public class GUIKontroler {
 	private static MenjacnicaGUI frame;
+	private static Menjacnica menjacnica;
 
 	/**
 	 * Launch the application.
@@ -20,6 +21,7 @@ public class GUIKontroler {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					menjacnica = new Menjacnica();
 					 frame = new MenjacnicaGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -62,19 +64,19 @@ public class GUIKontroler {
 	}
 	
 	public static List<Kurs> vratiSveKurseve() {
-		return Menjacnica.vratiSveKurseve();
+		return menjacnica.vratiSveKurseve();
 	}
 	public static void dodajKursProzor() {
 		DodajKursGui prozor = new DodajKursGui();
 		prozor.setVisible(true);
 		prozor.setLocationRelativeTo(null);
 	}
-	//String naziv, String skraceniNaziv, String sifra, double prodajniKurs, double kupovniKurs, double srednjiKurs
+	
 	public static void dodajKurs(String naziv, String skraceniNaziv, String sifra, String prodajniKurs, String kupovniKurs, String srednjiKurs) {
 		double pk = Double.parseDouble(prodajniKurs);
 		double kk = Double.parseDouble(kupovniKurs);
 		double sk = Double.parseDouble(srednjiKurs);
-		Menjacnica.dodajKurs(sifra, naziv, skraceniNaziv, pk, kk, sk);
+		menjacnica.dodajKurs(sifra, naziv, skraceniNaziv, pk, kk, sk);
 		frame.osveziTabelu();
 	}
 	
@@ -84,16 +86,11 @@ public class GUIKontroler {
 	}
 	
 	public static void izbrisiKurs(Kurs k) {
-		List<Kurs> kursevi = Menjacnica.vratiSveKurseve();
-		Menjacnica.izbrisiKurs(k);
-		List<Kurs> kursevi1 = Menjacnica.vratiSveKurseve();
-		if(kursevi.equals(kursevi1)) {
-			JOptionPane.showMessageDialog(frame, "Brisanje kursa nije uspešno.", "Greška", JOptionPane.ERROR_MESSAGE);
-		}
-		else {
+	
+		menjacnica.izbrisiKurs(k);
+		
 		frame.osveziTabelu();
-		JOptionPane.showMessageDialog(frame, "Uspešno ste izbrisali kurs.");
-		}
+		
 
 	}
 	
@@ -109,6 +106,6 @@ public class GUIKontroler {
 	}
 	
 	public static void pomoc() {
-		JOptionPane.showMessageDialog(frame, "Autor programa: \nAleksandra Mikaševiæ");
+		JOptionPane.showMessageDialog(frame.getContentPane(), "Autor programa: \nAleksandra Mikaševiæ", "O programu", JOptionPane.INFORMATION_MESSAGE);
 	}
 }	

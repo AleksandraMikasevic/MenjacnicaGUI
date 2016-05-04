@@ -6,7 +6,7 @@ import java.util.List;
 public class Menjacnica {
 	private static List<Kurs> kursevi = new LinkedList<Kurs>();
 
-	public static List<Kurs> vratiSveKurseve() {
+	public List<Kurs> vratiSveKurseve() {
 		return kursevi;
 	}
 
@@ -14,7 +14,7 @@ public class Menjacnica {
 		this.kursevi = kursevi;
 	}
 	
-	public static void dodajKurs(String sifra, String naziv, String skraceniNaziv, double prodajniKurs, double kupovniKurs, double srednjiKurs) {
+	public void dodajKurs(String sifra, String naziv, String skraceniNaziv, double prodajniKurs, double kupovniKurs, double srednjiKurs) {
 		Kurs k = new Kurs();
 		k.setSifra(sifra);
 		k.setKupovniKurs(kupovniKurs);
@@ -25,7 +25,7 @@ public class Menjacnica {
 		kursevi.add(k);
 	}
 	
-	public static void izbrisiKurs(Kurs k) {
+	public void izbrisiKurs(Kurs k) {
 		kursevi.remove(k);
 	}
 }
