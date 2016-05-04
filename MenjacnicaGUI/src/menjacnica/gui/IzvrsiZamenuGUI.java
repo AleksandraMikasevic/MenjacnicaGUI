@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
@@ -33,14 +34,18 @@ public class IzvrsiZamenuGUI extends JFrame {
 	private JLabel lblVrstaTransakcije;
 	private JSlider slider;
 	private JButton btnIzvrsiZamenu;
-	private JButton btnOdustani;
+	private JButton btnOdustani;	
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public IzvrsiZamenuGUI() {
+		setResizable(false);
 		setTitle("Izvrsi zamenu");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 361, 318);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -118,6 +123,8 @@ public class IzvrsiZamenuGUI extends JFrame {
 	private JRadioButton getRdbtnKupovina() {
 		if (rdbtnKupovina == null) {
 			rdbtnKupovina = new JRadioButton("Kupovina");
+			rdbtnKupovina.setSelected(true);
+			buttonGroup.add(rdbtnKupovina);
 			rdbtnKupovina.setBounds(218, 101, 127, 25);
 		}
 		return rdbtnKupovina;
@@ -125,6 +132,7 @@ public class IzvrsiZamenuGUI extends JFrame {
 	private JRadioButton getRdbtnProdaja() {
 		if (rdbtnProdaja == null) {
 			rdbtnProdaja = new JRadioButton("Prodaja");
+			buttonGroup.add(rdbtnProdaja);
 			rdbtnProdaja.setBounds(218, 129, 127, 25);
 		}
 		return rdbtnProdaja;
